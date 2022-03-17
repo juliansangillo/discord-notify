@@ -49,7 +49,8 @@ version=<version-to-install>
 ```bash
 sudo wget \
 	https://github.com/juliansangillo/discord-notify/releases/download/v${version}/discord-notify.sh \
-	&& mv \
+	&& sudo chmod +x discord-notify.sh \
+	&& sudo mv \
 	discord-notify.sh \
 	/bin/discord-notify
 ```
