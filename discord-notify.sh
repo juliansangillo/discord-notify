@@ -70,7 +70,7 @@ if [ -z "$url" ]; then
 	exit 1
 fi
 
-curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"Hello\nJulian\"}" $url
+curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$content\"}" $url
 if [ $? -ne 0 ]; then
 	log_error "failed to send. Please check logs and try again."
 	exit 2
