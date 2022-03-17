@@ -42,7 +42,10 @@ This also works when piping the direct output of a program instead of a file. I 
 7. Then, you can click 'Copy Webhook URL' and use that with discord-notify to send messages.
 
 ## Installation
-To use discord-notify, please open a terminal and run the following command:
+To use discord-notify, please open a terminal and run the following commands:
+```bash
+version=<version-to-install>
+```
 ```bash
 sudo wget \
 	https://github.com/juliansangillo/discord-notify/releases/download/v${version}/discord-notify.sh \
@@ -50,4 +53,4 @@ sudo wget \
 	discord-notify.sh \
 	/bin/discord-notify
 ```
-Where `${version}` is the discord-notify version you wish to install. The versions are available on the releases page. You can also check the version you currently have on your machine by running `discord-notify -v`.
+All versions are available on the releases page. You can also check the version you currently have on your machine by running `discord-notify -v`.
