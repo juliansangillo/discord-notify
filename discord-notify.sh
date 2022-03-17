@@ -3,8 +3,9 @@
 version=1.0
 version_info="discord-notify version $version"
 
-help_text="Usage: discord-notify -u <url> [-h] <content>
-Usage: echo <content> | discord-notify -u <url> [-h]
+help_text="Usage: discord-notify [-vh]
+Usage: discord-notify -u <url> <content>
+Usage: echo <content> | discord-notify -u <url>
 
 Sends a simple text notification to a discord server using a webhook. Useful for 
 automated notifications and alerts.
@@ -15,7 +16,7 @@ Required:
 	-u, --url		Discord webhook url to send notification to.
 
 Flags:
-	-v, --version	Show version info
+	-v, --version		Show version info
 	-h, --help		Show this help text."
 
 function log_out {
