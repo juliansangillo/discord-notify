@@ -7,11 +7,12 @@ Sends a simple text notification to a discord server using a webhook. Useful for
 
 ## Usages
 ```bash
-discord-notify -u <url> [-vh] <content>
-echo <content> | discord-notify -u <url> [-vh]
+discord-notify [-vh]
+discord-notify -u <url> <content>
+echo <content> | discord-notify -u <url>
 ```
-- content : The text content to send in the notification to the webhook. This is required, but it can be provided either as a positional argument or in stdin as part of a pipe.
-- -u, --url : The discord webhook url to send notification to. This can be configured on discord after setting up a discord server.
+- content : The text content to send in the notification to the webhook. This is required to send notification, but it can be provided either as a positional argument or in stdin as part of a pipe.
+- -u, --url : The discord webhook url to send notification to. This can be configured on discord after setting up a discord server. This is also required to send notification.
 - -v, --version : Show version info.
 - -h, --help : Show help text. In case you forget how to use.
 
@@ -22,7 +23,7 @@ discord-notify -u https://discord.com/api/webhooks/your-discord-webhook-url "Hel
 This will send the text "Hello World" to your-discord-webhook-url resulting in a "Hello World" message in a channel on your discord server. The server and channel which the message is posted to as well as the username it is posted as are all configured on the webhook.
 
 ```bash
-cat /var/log/your-program.log | discord-notify -u https://discord.com/api/webhooks/your-discord-webhook-url
+cat your-program.log | discord-notify -u https://discord.com/api/webhooks/your-discord-webhook-url
 ```
 This will use the cat command to output the contents of your-program.log and then pipe those contents into discord-notify. It will then send that content as a message to your-discord-webhook-url. This will work even if the contents contain multiple lines.
 
@@ -43,6 +44,10 @@ This also works when piping the direct output of a program instead of a file. I 
 ## Installation
 To use discord-notify, please open a terminal and run the following command:
 ```bash
-sudo wget https://github.com/juliansangillo/discord-notify/releases/download/v${version}/discord-notify.sh && mv discord-notify.sh /bin/discord-notify
+sudo wget \
+	https://github.com/juliansangillo/discord-notify/releases/download/v${version}/discord-notify.sh \
+	&& mv \
+	discord-notify.sh \
+	/bin/discord-notify
 ```
 Where `${version}` is the discord-notify version you wish to install. The versions are available on the releases page. You can also check the version you currently have on your machine by running `discord-notify -v`.
