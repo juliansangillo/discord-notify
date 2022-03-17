@@ -1,5 +1,8 @@
 #! /bin/bash
 
+version=1.0
+version_info="discord-notify version $version"
+
 help_text="Usage: discord-notify -u <url> [-h] <content>
 Usage: echo <content> | discord-notify -u <url> [-h]
 
@@ -12,8 +15,8 @@ Required:
 	-u, --url		Discord webhook url to send notification to.
 
 Flags:
-	-h, --help		Show this help text.
-"
+	-v, --version	Show version info
+	-h, --help		Show this help text."
 
 function log_out {
 	echo "discord-notify: $1"
@@ -31,6 +34,7 @@ pos=()
 while (( "$#" )); do
 	case "$1" in
 		-h|--help) echo "$help_text" && exit 0;;
+		-v|--version) echo "$version_info" && exit 0;;
 		-u|--url) 
 			if [[ -z "$2" || " -h --help -u --url -s --show_status " =~ " $2 " ]]; then
 				log_error "url must have a value" -h
