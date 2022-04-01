@@ -1,6 +1,8 @@
 #! /bin/bash
 
-version=1.0
+IFS=$"\n"
+
+version=1.1
 version_info="discord-notify version $version"
 
 help_text="Usage: discord-notify [-vh]
@@ -51,16 +53,16 @@ while (( "$#" )); do
 	esac
 done
 
+lines=()
 if [ ! -z "${pos[0]}" ]; then
-	content="${pos[0]}"
+	lines+=("${pos[0]}")
 elif [ ! -t 0 ]; then
-	content=""
 	while read line ; do
-		content="${content}${line}\n"
+		lines+=("${line}")
 	done < /dev/stdin
 fi
 
-if [ -z "$content" ]; then
+if [[ -z "${lines[@]}" ]]; then
 	log_error "content is required. Please provide some content and try again." -h
 	exit 1
 fi
@@ -70,9 +72,25 @@ if [ -z "$url" ]; then
 	exit 1
 fi
 
-curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$content\"}" $url
-if [ $? -ne 0 ]; then
-	log_error "failed to send. Please check logs and try again."
-	exit 2
-fi
+limit=2000
+messages=()
+message=""
+for line in "${lines[@]}" ; do
+	if [ $(( ${#message} + ${#line} )) -gt $limit ]; then
+		messages+=("$message")
+		message="$line"
+	else
+		message="${message}${line}\n"
+	fi
+done
+messages+=("$message")
+
+count="${#messages[@]}"
+for i in "${!messages[@]}"; do
+	curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"${messages[$i]}\"}" $url
+	if [ $count -gt 1 ]; then
+		curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$(( i + 1 ))/$count\"}" $url
+	fi
+done
+
 log_out "sent."
