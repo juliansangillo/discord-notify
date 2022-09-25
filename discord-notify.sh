@@ -87,9 +87,9 @@ messages+=("$message")
 
 count="${#messages[@]}"
 for i in "${!messages[@]}"; do
-	curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"${messages[$i]}\"}" $url
+	curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"${messages[$i]}\"}" "$url"
 	if [ $count -gt 1 ]; then
-		curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$(( i + 1 ))/$count\"}" $url
+		curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$(( i + 1 ))/$count\"}" "$url"
 	fi
 done
 
